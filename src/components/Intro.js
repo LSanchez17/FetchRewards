@@ -16,7 +16,7 @@ const Intro = () => {
         }, 5000)
 
         fetchData();
-    },[]);
+    });
 
     return(
         <div>

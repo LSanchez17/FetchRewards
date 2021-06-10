@@ -1,4 +1,5 @@
 import Manipulation from '../helpers/dataManipulation';
+import Tabulation from '../components/Tabulation';
 
 const DisplayData = (data) => {
     //manipulation here
@@ -7,11 +8,10 @@ const DisplayData = (data) => {
     let sortedData = Manipulation.sortById(mildData);
     let alphabetizedData = Manipulation.sortByName(sortedData);
 
-    console.log(alphabetizedData)
     return(
         <div>
             <p>Data goes here</p>
-            {/* {alphabetizedData ? alphabetizedData : <h1>Loading....</h1>}  */}
+            {alphabetizedData ? <Tabulation data={alphabetizedData} /> : <h1>Loading....</h1>} 
         </div>
     );
 }

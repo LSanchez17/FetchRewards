@@ -1,7 +1,7 @@
 class Manipulation{
     static removeNulls(roughData){
         return roughData.roughData.map((item) => {
-            if(item.name !== null && item.name.length !== 0){ 
+            if(item.name){ 
                 return item;
             };
         });
