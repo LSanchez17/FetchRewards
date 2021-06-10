@@ -5,7 +5,6 @@ const Tabulation = ({data}) => {
     let [newPage, setNewPage] = useState(1);
     let [displayedRows, setDisplayedRows] = useState();
 
-    console.log(data[data.length-1]);
     let rowsOfData = data.map((item, idx) => {
         return (
             <tr key={idx}>
@@ -25,7 +24,7 @@ const Tabulation = ({data}) => {
             document.querySelector('#next').classList = 'd-none';
         }
         if(currentPage*5 >= 5){
-            document.querySelector('#back').classList = 'btn btn-warning btn-sm';
+            document.querySelector('#back').classList = 'btn btn-warning btn-sm p-2 m-2';
         }
 
         setDisplayedRows(rowsOfData.slice(currentPage*5, newPage*5));
@@ -46,26 +45,27 @@ const Tabulation = ({data}) => {
         //return to the beginning
         setCurrentPage(0);
         setNewPage(1);
-        setDisplayedRows(rowsOfData.slice(0,5));
-        document.querySelector('#next').classList = 'btn btn-info btn-sm';
+        setDisplayedRows(rowsOfData.slice(currentPage,newPage*5));
+        document.querySelector('#next').classList = 'btn btn-info btn-sm p-2 m-2';
         document.querySelector('#back').classList = 'd-none';
     }
 
     const viewData = () => {
         //view the data rendering
-        setDisplayedRows(rowsOfData.slice(currentPage*5, newPage*5));
-        document.querySelector('#reset').classList = 'btn btn-danger btn-sm';
-        document.querySelector('#next').classList = 'btn btn-info btm-sm';
+        setDisplayedRows(rowsOfData.slice(currentPage, newPage*5));
+        document.querySelector('#reset').classList = 'btn btn-danger btn-sm p-2 m-2';
+        document.querySelector('#next').classList = 'btn btn-info btm-sm p-2 m-2';
     }
     
     useEffect(() => {
         setTimeout(() => {
             viewData();
-        }, 2500);
-    })
+        }, 2000);
+    }, [])
 
     return(
         <div>
+            {displayedRows ? 
             <table className='table'>
                 <tbody>
                     <tr>
@@ -76,7 +76,9 @@ const Tabulation = ({data}) => {
                     {displayedRows}
                 </tbody>
             </table>
-
+            : 
+            <div className='spinner-border'></div>
+            }
             <button id='next' className='d-none' onClick={paginate}>Next Page</button>
             <button id='back' className='d-none' onClick={goBack}>Previous Page</button>
             <button id='reset' className='d-none' onClick={resetView}>Reset</button>
