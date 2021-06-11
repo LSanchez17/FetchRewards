@@ -20,7 +20,7 @@ const Intro = () => {
 
     return(
         <div>
-            <h1 className='mb-2 pt-4 '>Welcome to the Fetch Rewards Exercise!</h1>
+            <h1 className='mb-2 pt-4'>Welcome to the Fetch Rewards Exercise!</h1>
             <ul className='list-group list-group-flush'>
                 <li className='list-group-item m-0'>Displays data without nulls or empty names</li>
                 <li className='list-group-item'>Sorted by "listId" and then by "name"</li>
