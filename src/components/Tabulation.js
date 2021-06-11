@@ -4,10 +4,11 @@ const Tabulation = ({data}) => {
     let [currentPage, setCurrentPage] = useState(0);
     let [newPage, setNewPage] = useState(1);
     let [displayedRows, setDisplayedRows] = useState();
+    let [page, setPage] = useState(0);
 
     let rowsOfData = data.map((item, idx) => {
         return (
-            <tr key={idx}>
+            <tr scope='row' key={idx}>
                 <td>Name: {item.name}</td>
                 <td>List Id:{item.listId}</td>
                 <td>Id: {item.id}</td>
@@ -17,8 +18,9 @@ const Tabulation = ({data}) => {
 
     const paginate = () => {
         //steps through each set of 5 items in the data at a time
-        setCurrentPage(currentPage => currentPage += 1);
-        setNewPage(newPage => newPage += 1);
+        setCurrentPage(currentPage += 1);
+        setNewPage(newPage += 1);
+        setPage(page += 1);
 
         if(newPage*5 >= rowsOfData.length){
             document.querySelector('#next').classList = 'd-none';
@@ -31,8 +33,9 @@ const Tabulation = ({data}) => {
     }
 
     const goBack = () => {
-        setCurrentPage(currentPage => currentPage -= 1);
-        setNewPage(newPage => newPage -= 1);
+        setCurrentPage(currentPage -= 1);
+        setNewPage(newPage -= 1);
+        setPage(page -= 1);
 
         if(currentPage - 1 < 0){
             document.querySelector('#back').classList = 'd-none';
@@ -45,7 +48,9 @@ const Tabulation = ({data}) => {
         //return to the beginning
         setCurrentPage(0);
         setNewPage(1);
-        setDisplayedRows(rowsOfData.slice(currentPage,newPage*5));
+        setPage(0);
+        setDisplayedRows(rowsOfData.slice(0, 5));
+
         document.querySelector('#next').classList = 'btn btn-info btn-sm p-2 m-2';
         document.querySelector('#back').classList = 'd-none';
     }
@@ -60,13 +65,14 @@ const Tabulation = ({data}) => {
     useEffect(() => {
         setTimeout(() => {
             viewData();
-        }, 2000);
+        }, 1000);
     }, [])
 
     return(
-        <div>
+        <div className='grid center m-3 p-3'>
             {displayedRows ? 
-            <table className='table'>
+            <div>
+            <table className='table table-dark table-striped'>
                 <tbody>
                     <tr>
                         <th scope='col'>Name</th>
@@ -76,6 +82,8 @@ const Tabulation = ({data}) => {
                     {displayedRows}
                 </tbody>
             </table>
+            <h2>Page: {page}</h2>
+            </div>
             : 
             <div className='spinner-border'></div>
             }
